@@ -100,17 +100,17 @@ while flag:
 print("####################")
 
 # Start recording transactions
-print(
-    "\nPlease enter the transactions as (sender, receiver, amount)\n"
-    "Enter the transactions like the following:\n"
-    "1, 2, 26\n"
-    "Players:"
-)
-[print(str(i) + ". " + p) for i, p in enumerate(players)]
-print("\n" "a. save\n" "b. load\n" "c. exit\n" "d. delta")
-
+cls = lambda: os.system('cls' if os.name=='nt' else 'clear')
 while True:
     # get next transaction
+    print(
+        "\nPlease enter the transactions as (sender, receiver, amount)\n"
+        "Enter the transactions like the following:\n"
+        "1, 2, 26\n"
+        "Players:"
+    )
+    [print(str(i) + ". " + p) for i, p in enumerate(players)]
+    print("\n" "a. save\n" "b. load\n" "c. exit\n" "d. delta")
     print("\nEnter the next transaction:")
     trans = input().split(",")
     trans = [t.strip() for t in trans]
@@ -124,6 +124,10 @@ while True:
         filename = input("The saved file is called: ")
         load(filename)
     elif trans[0].lower() == "c":
+        save_choice = input("Would you like to save the state? ")
+        if save_choice.lower()[0] == 'y':
+            filename = input("Save transactions as: ")
+            save(filename)
         sys.exit()
     elif trans[0].lower() == "d":
         p = True
@@ -150,3 +154,4 @@ while True:
         transactions.append(Transaction(*trans))
         # for t in transactions:
         #     print(t)
+    cls()
